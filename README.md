@@ -1,299 +1,190 @@
-# 📦 Inventory Management System
+# Smart Finance Dashboard
 
-A simple and efficient **Inventory Management System** built with **Python** and **SQLite3**. This is a menu-driven command-line application designed to manage products, quantities, prices, stock levels, and overall inventory value.
+Smart Finance Dashboard is a Python‑based personal expense tracking and analytics app.  
+It uses **Pandas** and **Matplotlib** for data processing and visualization, and **Streamlit** for an interactive web UI.
 
-The project demonstrates practical use of **Python functions, loops, conditional statements, SQLite database operations, and CRUD functionality**.
+The app lets you:
+
+- Add and store daily expenses in a CSV file  
+- View key metrics (total spent, number of entries, average per expense)  
+- Explore **category‑wise** and **monthly** spending trends  
+- Detect high‑spending days using simple statistics  
+- Use a dark, modern dashboard theme configured via `.streamlit/config.toml`  
+
+---
+<img width="1903" height="877" alt="Screenshot 2026-04-05 191337" src="https://github.com/user-attachments/assets/81704c15-f468-4be5-8b63-255eebed8fb2" />
+
+
+
+## 🔗 Repository
+
+GitHub: https://github.com/pb3890/Smart_finance_Dashboard  
 
 ---
 
-## 🚀 Features
+## 🔧 Tech Stack
 
-* ➕ **Add Product**
-
-  * Add a new product with its quantity and price.
-  * If the product already exists, its information can be replaced.
-
-* ✏️ **Update Product**
-
-  * Update the quantity and price of an existing product.
-
-* 📋 **Show All Products**
-
-  * Display all products stored in the inventory.
-
-* 🔍 **Show Specific Product**
-
-  * Search and display a particular product.
-
-* 🗑️ **Remove Product**
-
-  * Delete a product from the inventory.
-
-* 💰 **Calculate Total Inventory Value**
-
-  * Calculates the total value using:
-
-  `Quantity × Price`
-
-* ⚠️ **Low Stock Detection**
-
-  * Displays products whose quantity is below **5 units**.
-
-* 💾 **SQLite Database**
-
-  * Product information is stored persistently in an SQLite database.
+- Python 3.x  
+- [Streamlit](https://streamlit.io/) – web UI  
+- [Pandas](https://pandas.pydata.org/) – data handling and aggregation  
+- [Matplotlib](https://matplotlib.org/) – charts and plots  
 
 ---
 
-## 🛠️ Technologies Used
-
-| Technology   | Purpose                 |
-| ------------ | ----------------------- |
-| Python       | Application development |
-| SQLite3      | Database management     |
-| SQL          | Database operations     |
-| Command Line | User interface          |
-
----
-
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```text
-Inventory-Management-System/
-│
-├── main.py
-├── inventory.db
-└── README.md
+Smart_finance_Dashboard/
+├── app.py                 # Streamlit dashboard (main entry point)
+├── expense_app.py         # CLI version (optional)
+├── data/
+│   └── expenses.csv       # Expense data (CSV)
+└── .streamlit/
+    └── config.toml        # Streamlit theme configuration
 ```
 
-### Files
-
-**`main.py`**
-Contains the complete Python application, including the menu, functions, database operations, and inventory logic.
-
-**`inventory.db`**
-SQLite database used to store product information.
-
-**`README.md`**
-Project documentation and setup instructions.
+- `app.py` – main frontend, includes:
+  - Dashboard page with KPIs and recent transactions  
+  - Add Expense page with form  
+  - Analytics page with category breakdown, monthly trend, and high‑spending days  
+- `expense_app.py` – simple command‑line version of the tracker (for terminal use).  
+- `data/expenses.csv` – where expenses are stored; if missing, the app creates it automatically.  
+- `.streamlit/config.toml` – defines a dark, professional theme for the app.
 
 ---
 
-## 🗄️ Database Structure
+## ▶️ Getting Started
 
-The application automatically creates a `products` table if it does not already exist.
-
-```sql
-CREATE TABLE products (
-    name TEXT PRIMARY KEY,
-    quantity INTEGER,
-    price REAL
-);
-```
-
-### Product Fields
-
-| Field      | Type    | Description     |
-| ---------- | ------- | --------------- |
-| `name`     | TEXT    | Product name    |
-| `quantity` | INTEGER | Available stock |
-| `price`    | REAL    | Product price   |
-
----
-
-## ⚙️ How It Works
-
-When the application starts, it connects to the SQLite database:
-
-```python
-conn = sqlite3.connect('inventory.db')
-```
-
-The program then provides a menu with the following options:
-
-```text
-1. Add Product
-2. Update Product
-3. Show All Products
-4. Show Specific Product
-5. Remove Product
-6. Display Total Inventory Value
-7. Show Products with Quantity Below 5
-8. Exit
-```
-
-The menu runs continuously using a Python `while` loop until the user selects **Exit**.
-
----
-
-## ▶️ Installation & Setup
-
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/pb3890/Smart_finance_Dashboard.git
+cd Smart_finance_Dashboard
 ```
 
-### 2. Open the Project
+### 2. (Optional) Create and activate a virtual environment
 
 ```bash
-cd Inventory-Management-System
+python -m venv venv
+venv\Scripts\activate   # Windows
+
+# On macOS / Linux:
+# source venv/bin/activate
 ```
 
-### 3. Run the Application
+### 3. Install dependencies
 
-Make sure Python is installed on your system.
+If you add a `requirements.txt`, use:
 
 ```bash
-python main.py
+pip install -r requirements.txt
 ```
 
-On some systems, use:
+Otherwise:
 
 ```bash
-python3 main.py
+pip install streamlit pandas matplotlib
 ```
 
 ---
 
-## 💻 Example
+## Run the Streamlit Dashboard
 
-After starting the program:
+From the project root:
+
+```bash
+streamlit run app.py
+```
+
+Streamlit will start a local server and show a URL such as:
 
 ```text
-Inventory Management System
-1. Add Product
-2. Update Product
-3. Show All Products
-4. Show Specific Product
-5. Remove Product
-6. Display Total Inventory Value
-7. Show Products with Quantity Below 5
-8. Exit
-
-Enter your choice:
+http://localhost:8501
 ```
 
-### Adding a Product
+Open that URL in your browser to use the dashboard.
 
-```text
-Enter your choice: 1
-Enter product name: Laptop
-Enter quantity: 10
-Enter price: 55000
+---
 
-Product 'Laptop' added/updated successfully.
+## CLI Version (Optional)
+
+You can also run the simple terminal‑based tracker:
+
+```bash
+python expense_app.py
 ```
 
-### Displaying Inventory
+This version lets you add and view expenses via a text menu, using the same CSV file.
 
-```text
-Laptop: Quantity = 10, Price = Rs55000.00
+---
+
+## Features
+
+### Dashboard
+
+- Overall **total spent**, **number of entries**, **average per expense**, and **amount spent in the current month**  
+- Table of the **most recent transactions**, sorted by date  
+
+### Add Expense 
+
+- Form with:
+  - Date  
+  - Amount  
+  - Category (Food, Transport, Shopping, etc.)  
+  - Description  
+- On submission, the expense is appended to `data/expenses.csv`
+-
+- <img width="1898" height="872" alt="Screenshot 2026-04-05 191445" src="https://github.com/user-attachments/assets/153e5358-5fd6-433c-850a-f0d214bcaa41" />
+
+
+### Analytics
+
+- **By Category**  
+  - Bar chart of total amount per category  
+  - Summary table of category amounts  
+
+- **Monthly Trend**  
+  - Line chart of total spending per month  
+  - Uses Pandas `groupby` on the `Month` period  
+
+- **High‑Spending Days**  
+  - Computes daily totals and highlights days where spending is greater than 2× average daily spend  
+
+---
+<img width="1897" height="870" alt="Screenshot 2026-04-05 191529" src="https://github.com/user-attachments/assets/eecbb89a-572b-4c19-9105-e04abffa5f16" />
+
+<img width="1899" height="869" alt="Screenshot 2026-04-05 191631" src="https://github.com/user-attachments/assets/47fcb830-5686-4d06-8cdd-e88be818b729" />
+
+## Theming
+
+The dark theme is configured in `.streamlit/config.toml`:
+
+```toml
+[theme]
+base="dark"
+primaryColor="#2563EB"
+backgroundColor="#020617"
+secondaryBackgroundColor="#0F172A"
+textColor="#E5E7EB"
+font="sans serif"
 ```
 
-### Low Stock
-
-The system can identify products where:
-
-```text
-Quantity < 5
-```
+Streamlit loads this automatically when you run `streamlit run app.py`.
 
 ---
 
-## 🧠 Concepts Demonstrated
+# 📈 Possible Extensions
 
-This project is useful for practicing fundamental Python and database concepts:
-
-* Python functions
-* `while` loops
-* `if/elif/else`
-* User input
-* Exception-prone type conversion
-* SQLite database connection
-* SQL `INSERT`
-* SQL `UPDATE`
-* SQL `SELECT`
-* SQL `DELETE`
-* SQL aggregate functions
-* Parameterized SQL queries
-* CRUD operations
-* Database persistence
+- Monthly and per‑category budget limits with warnings  
+- CSV upload for importing bank/UPI statements  
+- Export reports as PDF or CSV  
+- Simple ML‑based category prediction for new transactions  
 
 ---
 
-## 🔄 CRUD Operations
+# Author
 
-The application supports complete basic CRUD operations:
+Created by **Princess Bajpai (pb3890)**  
 
-| Operation | Function                                |
-| --------- | --------------------------------------- |
-| Create    | `add_product()`                         |
-| Read      | `show_all_products()`, `show_product()` |
-| Update    | `update_product()`                      |
-| Delete    | `remove_product()`                      |
+- GitHub: [@pb3890](https://github.com/pb3890)
 
----
-
-## 📊 Inventory Value Calculation
-
-The total inventory value is calculated using:
-
-```text
-Total Inventory Value =
-Σ (Quantity × Price)
-```
-
-The application uses an SQL query equivalent to:
-
-```sql
-SELECT SUM(quantity * price) FROM products;
-```
-
----
-
-## 🎯 Project Objective
-
-The main objective of this project is to create a beginner-friendly inventory system while demonstrating how **Python can interact with a relational database**.
-
-It can be used as a foundation for developing a more advanced inventory management application with a graphical or web-based interface.
-
----
-
-## 🔮 Future Improvements
-
-Possible improvements for future versions include:
-
-* 🔐 User authentication
-* 🖥️ Graphical User Interface (GUI)
-* 🌐 Web-based interface using Django or Flask
-* 📊 Inventory dashboard
-* 📈 Sales and inventory reports
-* 🔔 Custom low-stock thresholds
-* 🔎 Advanced product search
-* 📤 Export inventory to CSV/Excel
-* 📥 Import products from CSV
-* 🧾 Invoice generation
-* 📅 Product transaction history
-* 📊 Charts and analytics
-* 🧑‍💼 Admin and staff accounts
-
----
-
-## 👨‍💻 Author
-
-**Pargat Singh**
-
-Computer Science & Engineering Student
-
----
-
-## ⭐ Support
-
-If you find this project useful, consider giving the repository a ⭐ on GitHub.
-
----
-
-## 📜 License
-
-This project is created for **educational and learning purposes**. You are free to modify and improve it for your own projects.
